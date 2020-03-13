@@ -1,0 +1,13 @@
+in:
+  type: mongodb
+  uri: mongodb://127.0.0.1:4001/mymongodatabasename
+  collection: "mycollection"
+out:
+  type: postgresql
+  host: 127.0.0.1
+  port: 4002
+  user: myusername
+  password: mysecretpassword
+  database: mypostgresdatabasename
+  table: mytable
+  mode: insert

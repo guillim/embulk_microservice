@@ -34,17 +34,10 @@ ARG LOCAL_PORT=default_LOCAL_PORT
 ARG REMOTE_HOST=default_REMOTE_HOST
 ARG REMOTE_PORT=default_REMOTE_PORT
 
-# could be removed if we don't use it in script.sh
-ENV SSHKEY=${SSHKEY}
-ENV TUNNEL_HOST=${TUNNEL_HOST}
-ENV LOCAL_PORT=${LOCAL_PORT}
-ENV REMOTE_HOST=${REMOTE_HOST}
-ENV REMOTE_PORT=${REMOTE_PORT}
-
 # could be removed i think
 EXPOSE 1-65535
 
-# starting in the background ssh tunnel
+# starting in the background ssh tunnels (for the two databases)
 ENTRYPOINT ssh \
 -4 \
 -q \
@@ -53,4 +46,12 @@ ENTRYPOINT ssh \
 -L *:$LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT \
 -fN \
 $TUNNEL_HOST \
+&& ssh \
+-4 \
+-q \
+-o StrictHostKeyChecking=no \
+-i  /work/.ssh/$SSHKEY2 \
+-L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
+-fN \
+$TUNNEL_HOST2 \
 && bash
