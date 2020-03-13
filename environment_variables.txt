@@ -1,0 +1,5 @@
+SSHKEY=default_env_SSHKEY
+TUNNEL_HOST=default_env_TUNNEL_HOST
+LOCAL_PORT=default_env_LOCAL_PORT
+REMOTE_HOST=default_env_REMOTE_HOST
+REMOTE_PORT=default_env_REMOTE_PORT
