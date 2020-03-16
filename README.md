@@ -4,11 +4,15 @@ This project aims to facilitate deploying embulk as a micro-service through SSH 
 
 ### What is does
 
-1. connect to your Mongo database
-2. do the job you tell him to do in the configuration.yml file
-3. connect to your postgres destination database and write what you want
+1. Connect to your database 1
+2. Do a job like converting from Db1 to Db2 (as mentioned in the configuration.yml file)  
+3. Connect to your database 2 and write the Embulk output
 
 Every connection is done using SSH tunneling.
+
+
+Example, with Mongo (database 1) and Postgres (database 2) :  
+![example](https://ibin.co/5FnkVGGw3Jej.png)
 
 ### Can it be on hosted on PAAS ?
 
