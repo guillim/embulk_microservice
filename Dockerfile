@@ -18,9 +18,12 @@ RUN source ~/.bashrc
 
 RUN ~/.embulk/bin/embulk gem install embulk-output-postgresql
 RUN ~/.embulk/bin/embulk gem install embulk-input-mongodb
+RUN ~/.embulk/bin/embulk gem install embulk-filter-expand_json
+RUN ~/.embulk/bin/embulk gem install embulk-filter-add_time
 
 RUN mkdir work
-COPY * /work/
+COPY configuration.yml /work/configuration.yml
+COPY script.sh /work/script.sh
 COPY .ssh/* /work/.ssh/
 
 WORKDIR /work
