@@ -27,3 +27,4 @@ Then, you have to :
 - customize the environment variables in the environment_variables.txt file according to the different IP of your servers etc...
 - modify configuration_example.yml according to your needs (see [embulk website](https://www.embulk.org/docs/) for more details)
 - run `docker build --tag embulk_container . && docker run --env-file=environment_variables.txt -it embulk_container bash` to launch the process
+- run `docker run --env-file=environment_variables.txt -it embulk_container bash` only later if you want to start the process again. If you change environment_variables.txt you will need to run the other one in order to build again the docker image
