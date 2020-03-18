@@ -25,7 +25,6 @@ Pre requisite : you need Docker installed on your machine
 Then, you have to :
 - put your ssh key (private) in the .ssh folder => this key will allow this machine to connect to the remote database
 - customize the environment variables in the environment_variables.txt file
-- copy configuration_example.yml to configuration.yml and modify it according to your needs 
+- copy configuration_example.yml to configuration.yml and modify it according to your needs
 - run `docker build --tag embulk_container .`
 - run `docker run --env-file=environment_variables.txt -it embulk_container bash`
-- run `./script.sh` inside the docker, in the /work folder
