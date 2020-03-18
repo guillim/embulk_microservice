@@ -23,30 +23,29 @@ RUN ~/.embulk/bin/embulk gem install embulk-filter-add_time
 
 RUN mkdir work
 COPY configuration.yml /work/configuration.yml
-COPY script.sh /work/script.sh
 COPY .ssh/* /work/.ssh/
 
 WORKDIR /work
 
 RUN chmod -R 600 /work/.ssh/*
-RUN chmod +x script.sh
+
 
 # here are some default values (overwritten by environment_variables.txt)
-ARG SSHKEY=key
-ARG TUNNEL_HOST=127.0.0.1
-ARG LOCAL_PORT=4001
-ARG REMOTE_HOST=86.0.0.12
-ARG REMOTE_PORT=27017
-ARG SSHKEY2=key
-ARG TUNNEL_HOST2=127.0.0.1
-ARG LOCAL_PORT2=4002
-ARG REMOTE_HOST2=93.0.0.11
-ARG REMOTE_PORT2=5432
+ENV SSHKEY=key
+ENV TUNNEL_HOST=127.0.0.1
+ENV LOCAL_PORT=4001
+ENV REMOTE_HOST=86.0.0.12
+ENV REMOTE_PORT=27017
+ENV SSHKEY2=key
+ENV TUNNEL_HOST2=127.0.0.1
+ENV LOCAL_PORT2=4002
+ENV REMOTE_HOST2=93.0.0.11
+ENV REMOTE_PORT2=5432
 
 # could be removed i think
 EXPOSE 1-65535
 
-# starting in the background ssh tunnels (for the two databases)
+# starting in the background ssh tunnels (for the two databases) - note that after ENTRYPOINT the ARG disappear, and only the ENV remains
 ENTRYPOINT ssh \
 -4 \
 -q \
@@ -63,4 +62,5 @@ $TUNNEL_HOST \
 -L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
 -fN \
 $TUNNEL_HOST2 \
+&& ~/.embulk/bin/embulk run configuration.yml -c diff.yml \
 && bash
