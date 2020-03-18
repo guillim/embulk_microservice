@@ -1,6 +1,6 @@
 SSHKEY=default_env_SSHKEY (a string like : keyexample - needs to be in the .ssh folder)
 TUNNEL_HOST=default_env_TUNNEL_HOST (something like : ssh_username@34.119.45.10)
-LOCAL_PORT=default_env_LOCAL_PORT (a number like : 4001 it needs to match the port in configuration.yml)
+LOCAL_PORT=default_env_LOCAL_PORT (a number like : 4001 it needs to match the port in configuration_example.yml)
 REMOTE_HOST=default_env_REMOTE_HOST (127.0.0.1 except if we connect to some intranet)
 REMOTE_PORT=default_env_REMOTE_PORT (a number like : 27017 depednding on the database you are connecting to)
 

@@ -1,0 +1,33 @@
+in:
+  type: mongodb
+  uri: mongodb://127.0.0.1:4001/mymongodatabasename
+  collection: "mycollection"
+  incremental_field: [yourchosenfield]
+filters:
+  - type: expand_json
+    json_column_name: record
+    expanded_columns:
+      - {name: _id, type: string}
+      - {name: rowCreatedAt, type: string}
+  - type: add_time
+    from_column:
+      name: rowCreatedAt
+      timestamp_format: '%Y-%m-%dT%H:%M:%S.%N%z'
+    to_column:
+      name: rowCreatedAt_time
+      type: timestamp
+  - type: add_time
+    to_column:
+      name: embulkTime
+      type: timestamp
+    from_value:
+      mode: upload_time
+out:
+  type: postgresql
+  host: 127.0.0.1
+  port: 4002
+  user: myusername
+  password: mysecretpassword
+  database: mypostgresdatabasename
+  table: mytable
+  mode: merge

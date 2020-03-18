@@ -21,8 +21,10 @@ RUN ~/.embulk/bin/embulk gem install embulk-input-mongodb
 RUN ~/.embulk/bin/embulk gem install embulk-filter-expand_json
 RUN ~/.embulk/bin/embulk gem install embulk-filter-add_time
 
+ARG CONFIGURATION_FILE=configuration_example.yml
+ENV CONFIGURATION_FILE=${CONFIGURATION_FILE}
 RUN mkdir work
-COPY configuration.yml /work/configuration.yml
+COPY $CONFIGURATION_FILE /work/$CONFIGURATION_FILE
 COPY .ssh/* /work/.ssh/
 
 WORKDIR /work
@@ -62,5 +64,5 @@ $TUNNEL_HOST \
 -L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
 -fN \
 $TUNNEL_HOST2 \
-&& ~/.embulk/bin/embulk run configuration.yml -c diff.yml \
+&& ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c diff.yml \
 && bash

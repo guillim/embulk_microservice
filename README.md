@@ -5,7 +5,7 @@ This project aims to facilitate deploying embulk as a micro-service through SSH 
 ### What is does
 
 1. Connect to your database 1
-2. Do a job like converting from Db1 to Db2 (as specified in the configuration.yml file)  
+2. Do a job like converting from Db1 to Db2 (as specified in the configuration_example.yml file)  
 3. Connect to your database 2 and write the Embulk output
 
 Every connection is done using SSH tunneling.
@@ -26,5 +26,12 @@ Then, you have to :
 - put your ssh key (the private part) in the .ssh folder as _keyexample_ or _default_env_SSHKEY_ according to your environment_variables you will define next step => this key will allow this machine to connect to the remote database so you need also to make sure the remote machines will allow the connection with a public key
 - customize the environment variables in the environment_variables.txt file according to the different IP of your servers etc...
 - modify configuration_example.yml according to your needs (see [embulk website](https://www.embulk.org/docs/) for more details)
-- run `docker build --tag embulk_container . && docker run --env-file=environment_variables.txt -it embulk_container bash` to launch the process
-- run `docker run --env-file=environment_variables.txt -it embulk_container bash` only later if you want to start the process again. If you change environment_variables.txt you will need to run the other one in order to build again the docker image
+- run `docker build --build-arg CONFIGURATION_FILE=configuration_example.yml --tag embulk_container .` to launch the build process of your docker image
+- run `docker run --env-file=environment_variables.txt -it embulk_container bash` only later if you want to start the process again. If you change environment_variables.txt of your configuration_example.yml you will need to run the other one in order to build again the docker image
+
+
+#### Note :
+
+- For better use, I suggest renaming configuration_example.yml to configuration.yml and since it is gitignored you can leave it in the repo. Another example can be found named configuration_example_2.yml
+- for incremental update, we need to keep "diff.yml" (see [embulk doc](https://www.embulk.org/docs/recipe/scheduled-csv-load-to-elasticsearch-kibana5.html#scheduling-loading-by-cron)) from one run to another. In order to do so, we set up a Docker Volume to keep it persistent. This is donc adding `-v $PWD:/work` to the docker `run command`. So here is the command:  
+`docker run --env-file=environment_variables.txt -v $PWD:/work -it embulk_container bash`
