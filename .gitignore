@@ -1,4 +1,6 @@
 env.txt
 .ssh/key
 configuration.yml
+configuration[0-9]*.yml
 diff.yml
+diff[0-9]*.yml

@@ -23,6 +23,9 @@ RUN ~/.embulk/bin/embulk gem install embulk-filter-add_time
 
 ARG CONFIGURATION_FILE=configuration_example.yml
 ENV CONFIGURATION_FILE=${CONFIGURATION_FILE}
+ARG DIFF_FILE=diff.yml
+ENV DIFF_FILE=${DIFF_FILE}
+
 RUN mkdir work
 COPY $CONFIGURATION_FILE /work/$CONFIGURATION_FILE
 COPY .ssh/* /work/.ssh/
@@ -64,5 +67,5 @@ $TUNNEL_HOST \
 -L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
 -fN \
 $TUNNEL_HOST2 \
-&& ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c diff.yml \
+&& ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c $DIFF_FILE \
 && bash
