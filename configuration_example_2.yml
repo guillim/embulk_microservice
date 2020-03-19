@@ -30,4 +30,5 @@ out:
   password: mysecretpassword
   database: mypostgresdatabasename
   table: mytable
-  mode: merge
+  mode: merge_direct
+  merge_keys: [_id]
