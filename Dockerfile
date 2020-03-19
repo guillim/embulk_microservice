@@ -20,6 +20,7 @@ RUN ~/.embulk/bin/embulk gem install embulk-output-postgresql
 RUN ~/.embulk/bin/embulk gem install embulk-input-mongodb
 RUN ~/.embulk/bin/embulk gem install embulk-filter-expand_json
 RUN ~/.embulk/bin/embulk gem install embulk-filter-add_time
+RUN ~/.embulk/bin/embulk gem install embulk-input-postgresql
 
 ARG CONFIGURATION_FILE=configuration_example.yml
 ENV CONFIGURATION_FILE=${CONFIGURATION_FILE}
@@ -67,5 +68,4 @@ $TUNNEL_HOST \
 -L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
 -fN \
 $TUNNEL_HOST2 \
-&& ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c $DIFF_FILE \
-&& bash
+&& ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c $DIFF_FILE
