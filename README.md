@@ -36,4 +36,5 @@ Then, you have to :
 - for incremental update, we need to keep "diff.yml" (see [embulk doc](https://www.embulk.org/docs/recipe/scheduled-csv-load-to-elasticsearch-kibana5.html#scheduling-loading-by-cron)) from one run to another. In order to do so, we set up a Docker Volume to keep it persistent. This is donc adding `-v $PWD:/work` to the docker `run command`. So here is the command:  
 `docker run --env-file=environment_variables.txt -v $PWD:/work -it embulk_container bash`
 - If, for some unkwnown reason, you cannot _merge_ the first time, try to _insert_ instead, and manually specify the primary key on your output database
-- you may encounter some database error _Sort operation used more than the maximum XXXXXX bytes of RAM_ in case of incremental_field while you haven't indexed your database on this field
+- you may encounter some database error _Sort operation used more than the maximum XXXXXX bytes of RAM_ in case of incremental_field while you haven't indexed your database on this field  
+- when running in production, don't forget to remove `-it` because no TTY will ba available if you trigger it from a CRON job for instance
