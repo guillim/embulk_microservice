@@ -1,7 +1,7 @@
 in:
   type: mongodb
   uri: mongodb://127.0.0.1:4001/mymongodatabasename
-  collection: "mycollection"
+  collection: mycollection
   incremental_field: [yourchosenfield]
 filters:
   - type: expand_json

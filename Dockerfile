@@ -1,13 +1,11 @@
-FROM java:8
+FROM fabric8/java-jboss-openjdk8-jdk:1.4.0
 
 # help here : https://unix.stackexchange.com/questions/508724/failed-to-fetch-jessie-backports-repository
 
-RUN echo "deb [check-valid-until=no] http://cdn-fastly.deb.debian.org/debian jessie main" > /etc/apt/sources.list.d/jessie.list
-RUN echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
-RUN sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list
-RUN apt-get -o Acquire::Check-Valid-Until=false update
-
-RUN apt-get install openssh-client
+USER root
+RUN yum -y update
+RUN yum -y install openssh
+RUN yum -y install openssh-clients
 
 SHELL ["/bin/bash", "-c"]
 

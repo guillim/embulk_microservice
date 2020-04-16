@@ -1,7 +1,7 @@
 in:
   type: mongodb
   uri: mongodb://127.0.0.1:4001/mymongodatabasename
-  collection: "mycollection"
+  collection: mycollection
 out:
   type: postgresql
   host: 127.0.0.1
