@@ -38,3 +38,4 @@ Then, you have to :
 - If, for some unkwnown reason, you cannot _merge_ the first time, try to _insert_ instead, and manually specify the primary key on your output database
 - you may encounter some database error _Sort operation used more than the maximum XXXXXX bytes of RAM_ in case of incremental_field while you haven't indexed your database on this field
 - using the java:8 docker image was triggering an out of RAM problem. we switched to this image FROM fabric8/java-jboss-openjdk8-jdk:1.4.0 in order to have the ability to limit Java Ram usage `docker run -m 600m -e JAVA_OPTIONS='-Xmx300m' [...]`. This issue was inherent to Java, unable to use cgroup memory limits : whatever the container Ram limit was, Java container was using all the machine ressource, causing big errors.
+- when running in production, don't forget to remove `-it` because no TTY will ba available if you trigger it from a CRON job for instance
