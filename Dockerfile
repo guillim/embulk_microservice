@@ -19,6 +19,7 @@ RUN ~/.embulk/bin/embulk gem install embulk-input-mongodb
 RUN ~/.embulk/bin/embulk gem install embulk-filter-expand_json
 RUN ~/.embulk/bin/embulk gem install embulk-filter-add_time
 RUN ~/.embulk/bin/embulk gem install embulk-input-postgresql
+RUN ~/.embulk/bin/embulk gem install embulk-output-bigquery
 
 ARG CONFIGURATION_FILE=configuration_example.yml
 ENV CONFIGURATION_FILE=${CONFIGURATION_FILE}
