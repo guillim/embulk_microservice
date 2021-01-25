@@ -1,0 +1,21 @@
+in:
+  type: postgresql
+  host: localhost
+  port: 4002
+  user: myusername
+  password: mysecretpassword
+  database: mypostgresdatabasename
+  table: mytable
+  incremental: true
+  incremental_columns: [row_creation_time]
+out:
+  type: bigquery
+  mode: append
+  auth_method: service_account
+  json_keyfile: credentials/google_service_account_json_keyfile_example.json
+  dataset: mydataset
+  table: mybigquerytable
+  auto_create_dataset: true
+  auto_create_table: true
+  compression: GZIP
+  source_format: NEWLINE_DELIMITED_JSON

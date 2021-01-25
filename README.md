@@ -41,7 +41,18 @@ Then, you have to :
 - when running in production, don't forget to remove `-it` because no TTY will ba available if you trigger it from a CRON job for instance
 
 ### TroubleShooting
-- If you still get prompt password, you have an issue with your SSH auth, It can be that your key has too wide permission. try 
+- If you still get prompt password, you have an issue with your SSH auth, It can be that your key has too wide permission. try
 ```bash
 chmod 600  .ssh/keyexample
 ```
+
+### Examples:
+
+##### From Mongo to Postgres
+see this [example](configuration_example.yml)
+
+##### From Mongo to Postgres, with transformation
+see this [example](configuration_example_2.yml)
+
+##### From Postgres to BigQuery
+see this [example](configuration_example_3.yml)
