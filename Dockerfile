@@ -9,7 +9,7 @@ RUN yum -y install openssh-clients
 
 SHELL ["/bin/bash", "-c"]
 
-RUN curl --create-dirs -o ~/.embulk/bin/embulk -L "https://dl.embulk.org/embulk-latest.jar"
+RUN curl --create-dirs -o ~/.embulk/bin/embulk -L "https://dl.embulk.org/embulk-0.9.25.jar"
 RUN chmod +x ~/.embulk/bin/embulk
 RUN echo 'export PATH="$HOME/.embulk/bin:$PATH"' >> ~/.bashrc
 RUN source ~/.bashrc
@@ -52,19 +52,19 @@ EXPOSE 1-65535
 
 # starting in the background ssh tunnels (for the two databases) - note that after ENTRYPOINT the ARG disappear, and only the ENV remains
 ENTRYPOINT ssh \
--4 \
--q \
--o StrictHostKeyChecking=no \
--i  /work/.ssh/$SSHKEY \
--L *:$LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT \
--fN \
-$TUNNEL_HOST \
-&& ssh \
--4 \
--q \
--o StrictHostKeyChecking=no \
--i  /work/.ssh/$SSHKEY2 \
--L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
--fN \
-$TUNNEL_HOST2 \
-&& ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c $DIFF_FILE
+  -4 \
+  -q \
+  -o StrictHostKeyChecking=no \
+  -i  /work/.ssh/$SSHKEY \
+  -L *:$LOCAL_PORT:$REMOTE_HOST:$REMOTE_PORT \
+  -fN \
+  $TUNNEL_HOST \
+  && ssh \
+  -4 \
+  -q \
+  -o StrictHostKeyChecking=no \
+  -i  /work/.ssh/$SSHKEY2 \
+  -L *:$LOCAL_PORT2:$REMOTE_HOST2:$REMOTE_PORT2 \
+  -fN \
+  $TUNNEL_HOST2 \
+  && ~/.embulk/bin/embulk run $CONFIGURATION_FILE -c $DIFF_FILE
